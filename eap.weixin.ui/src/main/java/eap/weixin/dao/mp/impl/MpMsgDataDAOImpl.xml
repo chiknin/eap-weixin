@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp">
+	
+	<insert id="saveMpMsgDataBO" parameterType="MpMsgDataBO">
+		INSERT INTO t_mp_msg_data(id,request_id,request_mode,msg_direction,data,created_time,update_time) 
+		VALUES(#{id},#{requestId},#{requestMode},#{msgDirection},#{data},#{createdTime},#{updateTime})
+	</insert>
+	
+	<delete id="deleteMpMsgDataBOById" parameterType="long">
+		DELETE FROM t_mp_msg_data WHERE id=#{id}
+	</delete>
+	
+	<update id="updateMpMsgDataBOById" parameterType="MpMsgDataBO">
+		UPDATE t_mp_msg_data
+		SET update_time=#{updateTime}
+		<if test="requestId!=null and requestId!=''">,request_id=#{requestId}</if>
+		<if test="requestMode!=null and requestMode!=''">,request_mode=#{requestMode}</if>
+		<if test="msgDirection!=null and msgDirection!=''">,msg_direction=#{msgDirection}</if>
+		<if test="data!=null and data!=''">,data=#{data}</if>
+ 		WHERE id=#{id}
+	</update>
+	
+	<select id="findMpMsgDataBOById" parameterType="long" resultType="MpMsgDataBO">
+		SELECT id,request_id,request_mode,msg_direction,data,created_time,update_time 
+		FROM t_mp_msg_data 
+		WHERE id=#{id}
+	</select>
+</mapper>

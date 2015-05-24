@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp">
+	
+	<insert id="saveMpUserGroupBO" parameterType="MpUserGroupBO">
+		INSERT INTO t_mp_user_group(id,mp_open_id,mp_group_id,name,count,created_time,update_time) 
+		VALUES(#{id},#{mpOpenId},#{mpGroupId},#{name},#{count},#{createdTime},#{updateTime})
+	</insert>
+	
+	<delete id="deleteMpUserGroupBOById" parameterType="long">
+		DELETE FROM t_mp_user_group WHERE id=#{id}
+	</delete>
+	
+	<update id="updateMpUserGroupBOById" parameterType="MpUserGroupBO">
+		UPDATE t_mp_user_group
+		SET update_time=#{updateTime}
+		<if test="mpOpenId!=null and mpOpenId!=''">,mp_open_id=#{mpOpenId}</if>
+		<if test="mpGroupId!=null">,mp_group_id=#{mpGroupId}</if>
+		<if test="name!=null and name!=''">,name=#{name}</if>
+		<if test="count!=null">,count=#{count}</if>
+ 		WHERE id=#{id}
+	</update>
+	
+	<select id="findMpUserGroupBOById" parameterType="long" resultType="MpUserGroupBO">
+		SELECT id,mp_open_id,mp_group_id,name,count,created_time,update_time 
+		FROM t_mp_user_group 
+		WHERE id=#{id}
+	</select>
+</mapper>

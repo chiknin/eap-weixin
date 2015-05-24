@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:ec="http://eap/schema/core"
+	xmlns:ew="http://eap/schema/web" xmlns:eapCodeTable="http://eap/schema/comps/codetable"
+	xmlns:eapDataStore="http://eap/schema/comps/datastore"
+	xmlns:eapMybatis="http://eap/schema/comps/orm/mybatis"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+	http://eap/schema/core http://eap/schema/core.xsd
+	http://eap/schema/web http://eap/schema/web.xsd
+	http://eap/schema/comps/codetable http://eap/schema/comps/codetable.xsd
+	http://eap/schema/comps/datastore http://eap/schema/comps/datastore.xsd
+	http://eap/schema/comps/orm/mybatis http://eap/schema/comps/orm/mybatis.xsd
+	">
+
+	<bean id="weixin.api.auth" class="eap.weixin.sdk.api.impl.AuthAPIImpl">
+		<property name="weixinClient" ref="weixin.client" />
+	</bean>
+	<bean id="weixin.api.customService" class="eap.weixin.sdk.api.impl.CustomServiceAPIImpl">
+		<property name="weixinClient" ref="weixin.client" />
+	</bean>
+	<bean id="weixin.api.dataCube" class="eap.weixin.sdk.api.impl.DataCubeAPIImpl">
+		<property name="weixinClient" ref="weixin.client" />
+	</bean>
+	<bean id="weixin.api.media" class="eap.weixin.sdk.api.impl.MediaAPIImpl">
+		<property name="weixinClient" ref="weixin.client" />
+	</bean>
+	<bean id="weixin.api.menu" class="eap.weixin.sdk.api.impl.MenuAPIImpl">
+		<property name="weixinClient" ref="weixin.client" />
+	</bean>
+	<bean id="weixin.api.message" class="eap.weixin.sdk.api.impl.MessageAPIImpl">
+		<property name="weixinClient" ref="weixin.client" />
+	</bean>
+	<bean id="weixin.api.qrcode" class="eap.weixin.sdk.api.impl.QrcodeAPIImpl">
+		<property name="weixinClient" ref="weixin.client" />
+	</bean>
+	<bean id="weixin.api.safe" class="eap.weixin.sdk.api.impl.SafeAPIImpl">
+		<property name="weixinClient" ref="weixin.client" />
+	</bean>
+	<bean id="weixin.api.shortUrl" class="eap.weixin.sdk.api.impl.ShortUrlAPIImpl">
+		<property name="weixinClient" ref="weixin.client" />
+	</bean>
+	<bean id="weixin.api.user" class="eap.weixin.sdk.api.impl.UserAPIImpl">
+		<property name="weixinClient" ref="weixin.client" />
+	</bean>
+	
+	<!-- 
+	<bean id="weixin.dispatcher" class="eap.weixin.sdk.dispatcher.impl.DefaultWeixinDispatcherImpl">
+		<property name="certificationHandler" ref="weixin.certificationHandler" />
+		<property name="messageHandler" ref="weixin.messageHandler" />
+		<property name="eventHandler" ref="weixin.eventHandler" />
+		<property name="safeAPI" ref="weixin.api.auth" />
+	</bean> -->
+	
+	<bean id="weixin.client" class="eap.weixin.sdk.client.impl.DefaultWeixinClientImpl">
+		<property name="httpClient" ref="httpClient" />
+	</bean>
+	
+	<bean id="httpConnectionManagerParams" class="org.apache.commons.httpclient.params.HttpConnectionManagerParams">
+		<property name="connectionTimeout" value="${int.http.client.connectionTimeout}" />
+		<property name="soTimeout" value="${int.http.client.soTimeout}" />
+		<property name="maxTotalConnections" value="${int.http.client.maxTotalConnections}" />
+		<property name="defaultMaxConnectionsPerHost" value="${int.http.client.defaultMaxConnectionsPerHost}" />
+	</bean>
+	<bean id="httpConnectionManager" class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" destroy-method="shutdownAll">
+		<property name="params" ref="httpConnectionManagerParams"/>
+	</bean>
+	<bean id="httpClient" class="eap.comps.httpclient.HttpClient">
+		<constructor-arg>
+			<ref bean="httpConnectionManager" />
+		</constructor-arg>
+	</bean>
+	
+</beans>

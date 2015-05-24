@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp">
+	
+	<insert id="saveMpMenuBO" parameterType="MpMenuBO">
+		INSERT INTO t_mp_menu(id,mp_open_id,type,name,key,url,ordinal,parent_id,created_time,update_time) 
+		VALUES(#{id},#{mpOpenId},#{type},#{name},#{key},#{url},#{ordinal},#{parentId},#{createdTime},#{updateTime})
+	</insert>
+	
+	<delete id="deleteMpMenuBOById" parameterType="long">
+		DELETE FROM t_mp_menu WHERE id=#{id}
+	</delete>
+	
+	<update id="updateMpMenuBOById" parameterType="MpMenuBO">
+		UPDATE t_mp_menu
+		SET update_time=#{updateTime}
+		<if test="mpOpenId!=null and mpOpenId!=''">,mp_open_id=#{mpOpenId}</if>
+		<if test="type!=null and type!=''">,type=#{type}</if>
+		<if test="name!=null and name!=''">,name=#{name}</if>
+		<if test="key!=null and key!=''">,key=#{key}</if>
+		<if test="url!=null and url!=''">,url=#{url}</if>
+		<if test="ordinal!=null">,ordinal=#{ordinal}</if>
+		<if test="parentId!=null">,parent_id=#{parentId}</if>
+ 		WHERE id=#{id}
+	</update>
+	
+	<select id="findMpMenuBOById" parameterType="long" resultType="MpMenuBO">
+		SELECT id,mp_open_id,type,name,key,url,ordinal,parent_id,created_time,update_time 
+		FROM t_mp_menu 
+		WHERE id=#{id}
+	</select>
+</mapper>

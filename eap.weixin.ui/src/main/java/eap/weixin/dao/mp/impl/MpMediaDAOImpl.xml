@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp">
+	
+	<insert id="saveMpMediaBO" parameterType="MpMediaBO">
+		INSERT INTO t_mp_media(id,mp_open_id,media_type,group_id,format,mp_thumb_media_id,title,description,music_url,hq_music_url,mp_media_id,mp_created_time,file_name,file_path,status,created_time,update_time) 
+		VALUES(#{id},#{mpOpenId},#{mediaType},#{groupId},#{format},#{mpThumbMediaId},#{title},#{description},#{musicUrl},#{hqMusicUrl},#{mpMediaId},#{mpCreatedTime},#{fileName},#{filePath},#{status},#{createdTime},#{updateTime})
+	</insert>
+	
+	<delete id="deleteMpMediaBOById" parameterType="long">
+		DELETE FROM t_mp_media WHERE id=#{id}
+	</delete>
+	
+	<update id="updateMpMediaBOById" parameterType="MpMediaBO">
+		UPDATE t_mp_media
+		SET update_time=#{updateTime}
+		<if test="mpOpenId!=null and mpOpenId!=''">,mp_open_id=#{mpOpenId}</if>
+		<if test="mediaType!=null and mediaType!=''">,media_type=#{mediaType}</if>
+		<if test="groupId!=null">,group_id=#{groupId}</if>
+		<if test="format!=null and format!=''">,format=#{format}</if>
+		<if test="mpThumbMediaId!=null and mpThumbMediaId!=''">,mp_thumb_media_id=#{mpThumbMediaId}</if>
+		<if test="title!=null and title!=''">,title=#{title}</if>
+		<if test="description!=null and description!=''">,description=#{description}</if>
+		<if test="musicUrl!=null and musicUrl!=''">,music_url=#{musicUrl}</if>
+		<if test="hqMusicUrl!=null and hqMusicUrl!=''">,hq_music_url=#{hqMusicUrl}</if>
+		<if test="mpMediaId!=null and mpMediaId!=''">,mp_media_id=#{mpMediaId}</if>
+		<if test="mpCreatedTime!=null">,mp_created_time=#{mpCreatedTime}</if>
+		<if test="fileName!=null and fileName!=''">,file_name=#{fileName}</if>
+		<if test="filePath!=null and filePath!=''">,file_path=#{filePath}</if>
+		<if test="status!=null and status!=''">,status=#{status}</if>
+ 		WHERE id=#{id}
+	</update>
+	
+	<select id="findMpMediaBOById" parameterType="long" resultType="MpMediaBO">
+		SELECT id,mp_open_id,media_type,group_id,format,mp_thumb_media_id,title,description,music_url,hq_music_url,mp_media_id,mp_created_time,file_name,file_path,status,created_time,update_time 
+		FROM t_mp_media 
+		WHERE id=#{id}
+	</select>
+</mapper>

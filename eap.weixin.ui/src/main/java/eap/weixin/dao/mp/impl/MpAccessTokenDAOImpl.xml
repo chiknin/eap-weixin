@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp">
+	
+	<insert id="saveMpAccessTokenBO" parameterType="MpAccessTokenBO">
+		INSERT INTO t_mp_access_token(id,mp_open_id,access_token,expires_in,refresh_token,fans_open_id,scope,status,created_time,update_time) 
+		VALUES(#{id},#{mpOpenId},#{accessToken},#{expiresIn},#{refreshToken},#{fansOpenId},#{scope},#{status},#{createdTime},#{updateTime})
+	</insert>
+	
+	<delete id="deleteMpAccessTokenBOById" parameterType="long">
+		DELETE FROM t_mp_access_token WHERE id=#{id}
+	</delete>
+	
+	<update id="updateMpAccessTokenBOById" parameterType="MpAccessTokenBO">
+		UPDATE t_mp_access_token
+		SET update_time=#{updateTime}
+		<if test="mpOpenId!=null and mpOpenId!=''">,mp_open_id=#{mpOpenId}</if>
+		<if test="accessToken!=null and accessToken!=''">,access_token=#{accessToken}</if>
+		<if test="expiresIn!=null">,expires_in=#{expiresIn}</if>
+		<if test="refreshToken!=null and refreshToken!=''">,refresh_token=#{refreshToken}</if>
+		<if test="fansOpenId!=null and fansOpenId!=''">,fans_open_id=#{fansOpenId}</if>
+		<if test="scope!=null and scope!=''">,scope=#{scope}</if>
+		<if test="status!=null and status!=''">,status=#{status}</if>
+ 		WHERE id=#{id}
+	</update>
+	
+	<select id="findMpAccessTokenBOById" parameterType="long" resultType="MpAccessTokenBO">
+		SELECT id,mp_open_id,access_token,expires_in,refresh_token,fans_open_id,scope,status,created_time,update_time 
+		FROM t_mp_access_token 
+		WHERE id=#{id}
+	</select>
+</mapper>

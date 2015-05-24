@@ -1,0 +1,14 @@
+<#include "/WEB-INF/views/common/taglib.ftl">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<title><@decorator.title default="微信管理平台" /></title>
+<#include "/WEB-INF/views/common/layout/segment/page-resources.ftl">
+<@decorator.head />
+</head>
+<body >
+<#include "/WEB-INF/views/common/layout/segment/page-header.ftl">
+<@decorator.body />
+<#include "/WEB-INF/views/common/layout/segment/page-footer.ftl">
+</body>
+</html>

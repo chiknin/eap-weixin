@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp">
+	
+	<insert id="saveMpUserBO" parameterType="MpUserBO">
+		INSERT INTO t_mp_user(id,mp_open_id,open_id,union_id,nick_name,remark,sex,country,province,city,head_img_url,language,subscribe,subscribe_time,privilege,mp_group_id,qrcode_scene,created_time,update_time) 
+		VALUES(#{id},#{mpOpenId},#{openId},#{unionId},#{nickName},#{remark},#{sex},#{country},#{province},#{city},#{headImgUrl},#{language},#{subscribe},#{subscribeTime},#{privilege},#{mpGroupId},#{qrcodeScene},#{createdTime},#{updateTime})
+	</insert>
+	
+	<delete id="deleteMpUserBOById" parameterType="long">
+		DELETE FROM t_mp_user WHERE id=#{id}
+	</delete>
+	
+	<update id="updateMpUserBOById" parameterType="MpUserBO">
+		UPDATE t_mp_user
+		SET update_time=#{updateTime}
+		<if test="mpOpenId!=null and mpOpenId!=''">,mp_open_id=#{mpOpenId}</if>
+		<if test="openId!=null and openId!=''">,open_id=#{openId}</if>
+		<if test="unionId!=null and unionId!=''">,union_id=#{unionId}</if>
+		<if test="nickName!=null and nickName!=''">,nick_name=#{nickName}</if>
+		<if test="remark!=null and remark!=''">,remark=#{remark}</if>
+		<if test="sex!=null and sex!=''">,sex=#{sex}</if>
+		<if test="country!=null and country!=''">,country=#{country}</if>
+		<if test="province!=null and province!=''">,province=#{province}</if>
+		<if test="city!=null and city!=''">,city=#{city}</if>
+		<if test="headImgUrl!=null and headImgUrl!=''">,head_img_url=#{headImgUrl}</if>
+		<if test="language!=null and language!=''">,language=#{language}</if>
+		<if test="subscribe!=null and subscribe!=''">,subscribe=#{subscribe}</if>
+		<if test="subscribeTime!=null">,subscribe_time=#{subscribeTime}</if>
+		<if test="privilege!=null and privilege!=''">,privilege=#{privilege}</if>
+		<if test="mpGroupId!=null">,mp_group_id=#{mpGroupId}</if>
+		<if test="qrcodeScene!=null and qrcodeScene!=''">,qrcode_scene=#{qrcodeScene}</if>
+ 		WHERE id=#{id}
+	</update>
+	
+	<select id="findMpUserBOById" parameterType="long" resultType="MpUserBO">
+		SELECT id,mp_open_id,open_id,union_id,nick_name,remark,sex,country,province,city,head_img_url,language,subscribe,subscribe_time,privilege,mp_group_id,qrcode_scene,created_time,update_time 
+		FROM t_mp_user 
+		WHERE id=#{id}
+	</select>
+</mapper>

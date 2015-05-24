@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp">
+	
+	<insert id="saveMpMediaArticleBO" parameterType="MpMediaArticleBO">
+		INSERT INTO t_mp_media_article(id,mp_open_id,media_id,title,author,summary,content,content_source_url,ordinal,mp_thumb_media_id,pic_url,show_cover_pic,created_time,update_time) 
+		VALUES(#{id},#{mpOpenId},#{mediaId},#{title},#{author},#{summary},#{content},#{contentSourceUrl},#{ordinal},#{mpThumbMediaId},#{picUrl},#{showCoverPic},#{createdTime},#{updateTime})
+	</insert>
+	
+	<delete id="deleteMpMediaArticleBOById" parameterType="long">
+		DELETE FROM t_mp_media_article WHERE id=#{id}
+	</delete>
+	
+	<update id="updateMpMediaArticleBOById" parameterType="MpMediaArticleBO">
+		UPDATE t_mp_media_article
+		SET update_time=#{updateTime}
+		<if test="mpOpenId!=null and mpOpenId!=''">,mp_open_id=#{mpOpenId}</if>
+		<if test="mediaId!=null">,media_id=#{mediaId}</if>
+		<if test="title!=null and title!=''">,title=#{title}</if>
+		<if test="author!=null and author!=''">,author=#{author}</if>
+		<if test="summary!=null and summary!=''">,summary=#{summary}</if>
+		<if test="content!=null and content!=''">,content=#{content}</if>
+		<if test="contentSourceUrl!=null and contentSourceUrl!=''">,content_source_url=#{contentSourceUrl}</if>
+		<if test="ordinal!=null">,ordinal=#{ordinal}</if>
+		<if test="mpThumbMediaId!=null and mpThumbMediaId!=''">,mp_thumb_media_id=#{mpThumbMediaId}</if>
+		<if test="picUrl!=null and picUrl!=''">,pic_url=#{picUrl}</if>
+		<if test="showCoverPic!=null and showCoverPic!=''">,show_cover_pic=#{showCoverPic}</if>
+ 		WHERE id=#{id}
+	</update>
+	
+	<select id="findMpMediaArticleBOById" parameterType="long" resultType="MpMediaArticleBO">
+		SELECT id,mp_open_id,media_id,title,author,summary,content,content_source_url,ordinal,mp_thumb_media_id,pic_url,show_cover_pic,created_time,update_time 
+		FROM t_mp_media_article 
+		WHERE id=#{id}
+	</select>
+</mapper>

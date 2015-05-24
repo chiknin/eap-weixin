@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp">
+	
+	<insert id="saveMpMsgBO" parameterType="MpMsgBO">
+		INSERT INTO t_mp_msg(id,msg_direction,fans_open_id,mp_open_id,mp_created_time,msg_type,mp_msg_id,event,event_key,content,pic_url,mp_media_id,format,mp_thumb_media_id,title,description,url,ticket,pos_latitude,pos_longitude,pos_precision,pos_scale,label,recognition,reply_type,reply_media_id,origin_msg_id,created_time,update_time) 
+		VALUES(#{id},#{msgDirection},#{fansOpenId},#{mpOpenId},#{mpCreatedTime},#{msgType},#{mpMsgId},#{event},#{eventKey},#{content},#{picUrl},#{mpMediaId},#{format},#{mpThumbMediaId},#{title},#{description},#{url},#{ticket},#{posLatitude},#{posLongitude},#{posPrecision},#{posScale},#{label},#{recognition},#{replyType},#{replyMediaId},#{originMsgId},#{createdTime},#{updateTime})
+	</insert>
+	
+	<delete id="deleteMpMsgBOById" parameterType="long">
+		DELETE FROM t_mp_msg WHERE id=#{id}
+	</delete>
+	
+	<update id="updateMpMsgBOById" parameterType="MpMsgBO">
+		UPDATE t_mp_msg
+		SET update_time=#{updateTime}
+		<if test="msgDirection!=null and msgDirection!=''">,msg_direction=#{msgDirection}</if>
+		<if test="fansOpenId!=null and fansOpenId!=''">,fans_open_id=#{fansOpenId}</if>
+		<if test="mpOpenId!=null and mpOpenId!=''">,mp_open_id=#{mpOpenId}</if>
+		<if test="mpCreatedTime!=null">,mp_created_time=#{mpCreatedTime}</if>
+		<if test="msgType!=null and msgType!=''">,msg_type=#{msgType}</if>
+		<if test="mpMsgId!=null and mpMsgId!=''">,mp_msg_id=#{mpMsgId}</if>
+		<if test="event!=null and event!=''">,event=#{event}</if>
+		<if test="eventKey!=null and eventKey!=''">,event_key=#{eventKey}</if>
+		<if test="content!=null and content!=''">,content=#{content}</if>
+		<if test="picUrl!=null and picUrl!=''">,pic_url=#{picUrl}</if>
+		<if test="mpMediaId!=null and mpMediaId!=''">,mp_media_id=#{mpMediaId}</if>
+		<if test="format!=null and format!=''">,format=#{format}</if>
+		<if test="mpThumbMediaId!=null and mpThumbMediaId!=''">,mp_thumb_media_id=#{mpThumbMediaId}</if>
+		<if test="title!=null and title!=''">,title=#{title}</if>
+		<if test="description!=null and description!=''">,description=#{description}</if>
+		<if test="url!=null and url!=''">,url=#{url}</if>
+		<if test="ticket!=null and ticket!=''">,ticket=#{ticket}</if>
+		<if test="posLatitude!=null">,pos_latitude=#{posLatitude}</if>
+		<if test="posLongitude!=null">,pos_longitude=#{posLongitude}</if>
+		<if test="posPrecision!=null">,pos_precision=#{posPrecision}</if>
+		<if test="posScale!=null">,pos_scale=#{posScale}</if>
+		<if test="label!=null and label!=''">,label=#{label}</if>
+		<if test="recognition!=null and recognition!=''">,recognition=#{recognition}</if>
+		<if test="replyType!=null and replyType!=''">,reply_type=#{replyType}</if>
+		<if test="replyMediaId!=null">,reply_media_id=#{replyMediaId}</if>
+		<if test="originMsgId!=null">,origin_msg_id=#{originMsgId}</if>
+ 		WHERE id=#{id}
+	</update>
+	
+	<select id="findMpMsgBOById" parameterType="long" resultType="MpMsgBO">
+		SELECT id,msg_direction,fans_open_id,mp_open_id,mp_created_time,msg_type,mp_msg_id,event,event_key,content,pic_url,mp_media_id,format,mp_thumb_media_id,title,description,url,ticket,pos_latitude,pos_longitude,pos_precision,pos_scale,label,recognition,reply_type,reply_media_id,origin_msg_id,created_time,update_time 
+		FROM t_mp_msg 
+		WHERE id=#{id}
+	</select>
+</mapper>

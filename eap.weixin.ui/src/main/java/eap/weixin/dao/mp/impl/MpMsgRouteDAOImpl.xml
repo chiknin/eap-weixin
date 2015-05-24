@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp">
+	
+	<insert id="saveMpMsgRouteBO" parameterType="MpMsgRouteBO">
+		INSERT INTO t_mp_msg_route(id,route_name,rule,priority,class_name,method_name,method_params,status,created_time,update_time) 
+		VALUES(#{id},#{routeName},#{rule},#{priority},#{className},#{methodName},#{methodParams},#{status},#{createdTime},#{updateTime})
+	</insert>
+	
+	<delete id="deleteMpMsgRouteBOById" parameterType="long">
+		DELETE FROM t_mp_msg_route WHERE id=#{id}
+	</delete>
+	
+	<update id="updateMpMsgRouteBOById" parameterType="MpMsgRouteBO">
+		UPDATE t_mp_msg_route
+		SET update_time=#{updateTime}
+		<if test="routeName!=null and routeName!=''">,route_name=#{routeName}</if>
+		<if test="rule!=null and rule!=''">,rule=#{rule}</if>
+		<if test="priority!=null">,priority=#{priority}</if>
+		<if test="className!=null and className!=''">,class_name=#{className}</if>
+		<if test="methodName!=null and methodName!=''">,method_name=#{methodName}</if>
+		<if test="methodParams!=null and methodParams!=''">,method_params=#{methodParams}</if>
+		<if test="status!=null and status!=''">,status=#{status}</if>
+ 		WHERE id=#{id}
+	</update>
+	
+	<select id="findMpMsgRouteBOById" parameterType="long" resultType="MpMsgRouteBO">
+		SELECT id,route_name,rule,priority,class_name,method_name,method_params,status,created_time,update_time 
+		FROM t_mp_msg_route 
+		WHERE id=#{id}
+	</select>
+</mapper>

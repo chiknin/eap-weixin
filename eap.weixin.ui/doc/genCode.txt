@@ -1,0 +1,2 @@
+codegen:model
+codegen:dao -Dpath=mp -Dtables=t_mp_access_token,t_mp_account,t_mp_media,t_mp_media_article,t_mp_media_group,t_mp_menu,t_mp_msg,t_mp_msg_data,t_mp_msg_route,t_mp_reply_event,t_mp_reply_keyword,t_mp_user,t_mp_user_group

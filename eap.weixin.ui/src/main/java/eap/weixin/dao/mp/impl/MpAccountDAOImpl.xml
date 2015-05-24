@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mp">
+	
+	<insert id="saveMpAccountBO" parameterType="MpAccountBO">
+		INSERT INTO t_mp_account(id,account_type,account_name,open_id,mp_no,email,head_img_url,qrcode_pic_url,language,description,app_id,app_secret,server_url,token,aes_key,encryption_mode,created_time,update_time) 
+		VALUES(#{id},#{accountType},#{accountName},#{openId},#{mpNo},#{email},#{headImgUrl},#{qrcodePicUrl},#{language},#{description},#{appId},#{appSecret},#{serverUrl},#{token},#{aesKey},#{encryptionMode},#{createdTime},#{updateTime})
+	</insert>
+	
+	<delete id="deleteMpAccountBOById" parameterType="long">
+		DELETE FROM t_mp_account WHERE id=#{id}
+	</delete>
+	
+	<update id="updateMpAccountBOById" parameterType="MpAccountBO">
+		UPDATE t_mp_account
+		SET update_time=#{updateTime}
+		<if test="accountType!=null and accountType!=''">,account_type=#{accountType}</if>
+		<if test="accountName!=null and accountName!=''">,account_name=#{accountName}</if>
+		<if test="openId!=null and openId!=''">,open_id=#{openId}</if>
+		<if test="mpNo!=null and mpNo!=''">,mp_no=#{mpNo}</if>
+		<if test="email!=null and email!=''">,email=#{email}</if>
+		<if test="headImgUrl!=null and headImgUrl!=''">,head_img_url=#{headImgUrl}</if>
+		<if test="qrcodePicUrl!=null and qrcodePicUrl!=''">,qrcode_pic_url=#{qrcodePicUrl}</if>
+		<if test="language!=null and language!=''">,language=#{language}</if>
+		<if test="description!=null and description!=''">,description=#{description}</if>
+		<if test="appId!=null and appId!=''">,app_id=#{appId}</if>
+		<if test="appSecret!=null and appSecret!=''">,app_secret=#{appSecret}</if>
+		<if test="serverUrl!=null and serverUrl!=''">,server_url=#{serverUrl}</if>
+		<if test="token!=null and token!=''">,token=#{token}</if>
+		<if test="aesKey!=null and aesKey!=''">,aes_key=#{aesKey}</if>
+		<if test="encryptionMode!=null and encryptionMode!=''">,encryption_mode=#{encryptionMode}</if>
+ 		WHERE id=#{id}
+	</update>
+	
+	<select id="findMpAccountBOById" parameterType="long" resultType="MpAccountBO">
+		SELECT id,account_type,account_name,open_id,mp_no,email,head_img_url,qrcode_pic_url,language,description,app_id,app_secret,server_url,token,aes_key,encryption_mode,created_time,update_time 
+		FROM t_mp_account 
+		WHERE id=#{id}
+	</select>
+</mapper>
